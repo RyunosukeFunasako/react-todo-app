@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./styles.css";
 
 export const App = () => {
-  const [inputTodo, setInputTodo] = useState("")
+  const [inputTodo, setInputTodo] = useState("");
   const [uncompleteTodos, setUncompleteTodos] = useState(["ああああ", "いいいい"]);
   const [completeTodos, setCompleteTodos] = useState(["うううう"]);
   const onChangeInput = (event) => setInputTodo(event.target.value);
@@ -11,6 +11,11 @@ export const App = () => {
     const newUncompleteTodos = [...uncompleteTodos, inputTodo];
     setUncompleteTodos(newUncompleteTodos);
     setInputTodo("");
+  };
+  const onClickDeleteButton = (index) => {
+    const newUncompleteTodos = [...uncompleteTodos];
+    newUncompleteTodos.splice(index, 1);
+    setUncompleteTodos(newUncompleteTodos);
   };
   return (
     <>
@@ -21,12 +26,12 @@ export const App = () => {
        <div className="uncomplete-area">
         <p className="title">未完了のTODO</p>
         <ul>
-          {uncompleteTodos.map((todo) => {
+          {uncompleteTodos.map((todo, index) => {
             return (
               <div key={todo} className="todo">
                 <li>{todo}</li>
                 <button>完了</button>
-                <button>削除</button>
+                <button onClick={() => onClickDeleteButton(index)}>削除</button>
               </div>     
             )
           })}
