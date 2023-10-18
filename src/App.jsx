@@ -3,6 +3,7 @@ import "./styles.css";
 import { InputTodo } from "./components/InputTodo";
 import { UncompleteTodos } from "./components/UncompleteTodos";
 import { CompleteTodos } from "./components/CompleteTodos";
+import { Color } from "three";
 
 export const App = () => {
   const [inputTodo, setInputTodo] = useState("");
@@ -40,7 +41,13 @@ export const App = () => {
         inputTodo={inputTodo}
         onChangeInput={onChangeInput}
         onClickAddButton={onClickAddButton}
+        disabled={uncompleteTodos.length >= 5}
       />
+      {uncompleteTodos.length >= 5 && (
+        <p style={{ color: "red" }}>
+          登録可能なTODOは5つまでです。消化してください。
+        </p>
+      )}
       <UncompleteTodos
         uncompleteTodos={uncompleteTodos}
         onClickCompleteButton={onClickCompleteButton}
